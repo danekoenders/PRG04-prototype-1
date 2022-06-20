@@ -1,23 +1,23 @@
 import * as PIXI from 'pixi.js'
 
-import fishImage from "./images/fish.png"
-import bubbleImage from "./images/bubble.png"
-import waterImage from "./images/water.jpg"
-import sharkImage from "./images/shark.png"
+import coinImage from "./images/coin.png"
+import highwayImage from "./images/highway.jpg"
+import carImage from "./images/car.png"
 import bonesImage from "./images/bones.png"
 
-import { Fish } from "./fish"
-import { Shark } from "./shark"
+import { Coin } from "./coin"
+import { Car } from "./car"
 
 class Game {
     private pixi : PIXI.Application
     private loader : PIXI.Loader
-    private fishes : Fish[] = []
-    private shark : Shark
+    private coins : Coin[] = []
+    private car : Car
 
     constructor(){
         this.pixi = new PIXI.Application({ width: window.innerWidth, height: (window.innerHeight - 90)})
         const pixiCanvas = document.getElementById("pixi-canvas")
+
         if (pixiCanvas != null) {
             pixiCanvas.appendChild(this.pixi.view)
         }
@@ -25,11 +25,10 @@ class Game {
         console.log(this.pixi.screen.width)
 
         this.loader = new PIXI.Loader()
-        this.loader.add('fishTexture', fishImage)
-        .add('bubbleTexture', bubbleImage)
-        .add('waterTexture', waterImage)
-        .add('sharkTexture', sharkImage)
-        .add('backgroundTexture',waterImage)
+        this.loader
+        .add('coinTexture', coinImage)
+        .add('carTexture', carImage)
+        .add('backgroundTexture',highwayImage)
         .add('bonesTexture',bonesImage)
         this.loader.load(()=> this.loadCompleted())
     }
@@ -41,33 +40,23 @@ class Game {
     bg.scale.set (1.7)
 
         for (let i=0; i<50; i++){
-            let lonelyFish = new Fish(this.loader.resources["fishTexture"].texture!, this.loader.resources["bonesTexture"].texture!)
-            this.pixi.stage.addChild(lonelyFish)
-            this.fishes.push(lonelyFish)
+            let lonelyCoin = new Coin(this.loader.resources["coinTexture"].texture!, this.loader.resources["bonesTexture"].texture!)
+            this.pixi.stage.addChild(lonelyCoin)
+            this.coins.push(lonelyCoin)
         }
 
-        this.shark = new Shark(this.loader.resources["sharkTexture"].texture!)
-        this.pixi.stage.addChild(this.shark)
+        this.car = new Car(this.loader.resources["carTexture"].texture!)
+        this.pixi.stage.addChild(this.car)
 
         this.pixi.ticker.add(() => this.updateAnimations(devicePixelRatio))
     }
 
     private updateAnimations(delta : number){
-        for(let fish of this.fishes){
-            fish.swim() 
+        for(let coin of this.coins){
+            coin.thrive() 
         }
-        this.shark.swim()
+        this.car.thrive()
      }
-
-     private collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
-        const bounds1 = sprite1.getBounds()
-        const bounds2 = sprite2.getBounds()
-
-        return bounds1.x < bounds2.x + bounds2.width
-            && bounds1.x + bounds1.width > bounds2.x
-            && bounds1.y < bounds2.y + bounds2.height
-            && bounds1.y + bounds1.height > bounds2.y;
-    }    
 }
 
 let g = new Game()
