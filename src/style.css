@@ -10,3 +10,13 @@ body {
 canvas {
     width: 100vw;
 }
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.title h1 {
+    text-align: center;
+    color: white;
+}

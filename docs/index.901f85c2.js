@@ -533,9 +533,10 @@ class Game {
     constructor(){
         this.pixi = new _pixiJs.Application({
             width: window.innerWidth,
-            height: window.innerHeight
+            height: window.innerHeight - 90
         });
-        document.body.appendChild(this.pixi.view);
+        const pixiCanvas = document.getElementById("pixi-canvas");
+        if (pixiCanvas != null) pixiCanvas.appendChild(this.pixi.view);
         console.log(this.pixi.screen.width);
         this.loader = new _pixiJs.Loader();
         this.loader.add('fishTexture', _fishPngDefault.default).add('bubbleTexture', _bubblePngDefault.default).add('waterTexture', _waterJpgDefault.default).add('sharkTexture', _sharkPngDefault.default).add('backgroundTexture', _waterJpgDefault.default).add('bonesTexture', _bonesPngDefault.default);
@@ -557,10 +558,7 @@ class Game {
         );
     }
     updateAnimations(delta) {
-        for (let fish of this.fishes){
-            fish.swim();
-            if (this.collision(this.shark, fish)) fish.hitShark();
-        }
+        for (let fish of this.fishes)fish.swim();
         this.shark.swim();
     }
     collision(sprite1, sprite2) {
@@ -570,6 +568,7 @@ class Game {
     }
 }
 let g = new Game();
+console.log("Prototype 1");
 
 },{"pixi.js":"dsYej","./images/fish.png":"3tLwD","./images/bubble.png":"iMP3P","./images/water.jpg":"jj9Eg","./images/shark.png":"7HgQx","./images/bones.png":"dLwEI","./fish":"7VsCH","./shark":"kN3uI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -37150,10 +37149,6 @@ class Fish extends _pixiJs.Sprite {
     fishClicked() {
         console.log("dont touch me!");
         this.rotation = 0;
-        this.texture = this.deadTexture;
-    }
-    hitShark() {
-        this.texture = this.deadTexture;
         this.texture = this.deadTexture;
     }
 }

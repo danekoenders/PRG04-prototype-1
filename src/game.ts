@@ -16,8 +16,11 @@ class Game {
     private shark : Shark
 
     constructor(){
-        this.pixi = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight})
-        document.body.appendChild(this.pixi.view)
+        this.pixi = new PIXI.Application({ width: window.innerWidth, height: (window.innerHeight - 90)})
+        const pixiCanvas = document.getElementById("pixi-canvas")
+        if (pixiCanvas != null) {
+            pixiCanvas.appendChild(this.pixi.view)
+        }
 
         console.log(this.pixi.screen.width)
 
@@ -52,7 +55,6 @@ class Game {
     private updateAnimations(delta : number){
         for(let fish of this.fishes){
             fish.swim() 
-            if (this.collision(this.shark, fish ) ) fish.hitShark()
         }
         this.shark.swim()
      }
@@ -69,3 +71,4 @@ class Game {
 }
 
 let g = new Game()
+console.log("Prototype 1")

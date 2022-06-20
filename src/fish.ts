@@ -38,12 +38,4 @@ export class Fish extends PIXI.Sprite {
         this.rotation = 0
         this.texture = this.deadTexture
     }
-
-    public hitShark () {
-        this.texture  = this.deadTexture
-
-        if (this.texture = this.deadTexture){
-            
-        }
-    }
 }

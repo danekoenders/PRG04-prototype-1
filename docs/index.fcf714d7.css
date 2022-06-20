@@ -11,4 +11,14 @@ canvas {
   width: 100vw;
 }
 
+.title {
+  justify-content: center;
+  display: flex;
+}
+
+.title h1 {
+  text-align: center;
+  color: #fff;
+}
+
 /*# sourceMappingURL=index.fcf714d7.css.map */
