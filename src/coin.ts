@@ -2,14 +2,13 @@ import * as PIXI from 'pixi.js'
 
 export class Coin extends PIXI.Sprite {
     
-    deadTexture : PIXI.Texture
+    private deadTexture : PIXI.Texture
     private speed : number
-    
-     constructor(texture: PIXI.Texture, deadtexture: PIXI.Texture) {
+
+     constructor(texture: PIXI.Texture) {
         super(texture)
-        this.speed = Math.random() * 2
-        this.deadTexture = deadtexture
-        this.x = window.innerWidth + 100 + (Math.random() * 900)
+        this.speed = 1 + (Math.random() * 2)
+        this.x = window.innerWidth + 100 + (Math.random() * 3000)
         this.y = Math.random() * 1000
         this.anchor.set(0.4)
         this.tint = ((Math.random() * 0.001) + 0.999) * 0xFFFFFF;
@@ -33,10 +32,8 @@ export class Coin extends PIXI.Sprite {
         // this.y += Math.cos(this.x * 0.03) * 1.1
     }
 
-
     coinClicked() {
         console.log("Dont touch me!")
-        this.rotation = 0
         this.texture = this.deadTexture
     }
 }

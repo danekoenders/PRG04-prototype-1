@@ -26,7 +26,7 @@ export class Car extends PIXI.Sprite {
         console.log("shooooot!")
     }
 
-    onKeyDown(e: KeyboardEvent): void {
+    private onKeyDown(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case " ":
                 this.shoot()
