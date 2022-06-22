@@ -45,6 +45,27 @@ class Game {
 
         this.car = new Car(this.loader.resources["carTexture"].texture!)
         this.pixi.stage.addChild(this.car)
+
+        this.pixi.ticker.add(() => this.checkCollision(devicePixelRatio))
+    }
+
+    private checkCollision(delta : number){
+        for (let coin of this.coins) {
+            coin.thrive() 
+            if (this.collision(this.car, coin)) {
+            }
+        }
+        this.car.thrive()
+    }
+
+    private collision(car:PIXI.Sprite, coin:PIXI.Sprite) {
+        const bounds1 = car.getBounds()
+        const bounds2 = coin.getBounds()
+
+        return bounds1.x < bounds2.x + bounds2.width
+            && bounds1.x + bounds1.width > bounds2.x
+            && bounds1.y < bounds2.y + bounds2.height
+            && bounds1.y + bounds1.height > bounds2.y;
     }
 }
 
